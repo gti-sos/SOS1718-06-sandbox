@@ -1,14 +1,40 @@
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
-        - **Team** <br>
-  - [Dionisio Galvez Camacho]<a href="https://github.com/diogalcam">(https://github.com/diogalcam)</a> <br>
-  - [Alvaro Ortega Medina](https://github.com/alvortmed) <br>
-  - [Zoilo Gomez Gordon](https://github.com/zoigomgor) <br>
-- **Project description**: We will study the relation between : budget general,spending policy and taxes in Andalucia.<br>
-- **Repository**: [SOS1617/SOS1718-06](https://github.com/gti-sos/SOS1718-06)<br>
-- **URL**: [TBD](#)<br>
-    </body>
+<html ng-app="MiniPostmanApp">
+
+<head>
+    <title>My miniPostman</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script>
+        var app = angular.module("MiniPostmanApp", []);
+        app.controller("MainCtrl", ["$scope","$http", function($scope,$http) {
+            console.log("Main Ctrl initialized!");
+            $scope.url="/api/v1/contacts";
+            
+            $scope.send = function (){
+                $http.get($scope.url).then(function (response){
+                    $scope.data = JSON.stringify(response.data,null,2);
+                });
+            }
+            
+        }]);
+    </script>
+</head>
+
+<body ng-controller="MainCtrl">
+    <h1>Mini Postman</h1>
+    <div>
+        <label>
+                URL:
+                <input 
+                    class="form-control text-center" 
+                    ng-model="url"/>
+                </label>
+        <button class="btn btn-primary" ng-click="send()">Send</button> 
+    </div>
+    <div>
+        <textarea class="form-control" rows="20" ng-model="data"></textarea>
+    </div>
+</body>
+
 </html>
